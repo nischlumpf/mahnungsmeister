@@ -21,7 +21,6 @@ import {
   Mail,
   Printer,
   Trash2,
-  Edit,
   MoreHorizontal
 } from 'lucide-react'
 import Link from 'next/link'
@@ -149,7 +148,7 @@ export default function InvoiceDetailPage() {
   function getStatusBadge(status: InvoiceStatus) {
     const config = {
       [InvoiceStatus.OPEN]: { label: 'Offen', variant: 'secondary' as const, icon: Clock },
-      [InvoiceStatus.OVERDUE]: { label: 'Überfällig', variant: 'destructive' as const, icon: AlertCircle },
+      [InvoiceStatus.OVERDUE]: { label: 'Ueberfaellig', variant: 'destructive' as const, icon: AlertCircle },
       [InvoiceStatus.PAID]: { label: 'Bezahlt', variant: 'default' as const, icon: CheckCircle2 },
       [InvoiceStatus.CANCELLED]: { label: 'Storniert', variant: 'outline' as const, icon: Clock },
       [InvoiceStatus.IN_COLLECTION]: { label: 'Inkasso', variant: 'destructive' as const, icon: AlertCircle },
@@ -194,7 +193,7 @@ export default function InvoiceDetailPage() {
             <Link href="/invoices">
               <Button variant="outline" className="mt-4">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Zurück zur Übersicht
+                Zurueck zur Uebersicht
               </Button>
             </Link>
           </div>
@@ -205,7 +204,6 @@ export default function InvoiceDetailPage() {
 
   const daysOverdue = getDaysOverdue(invoice.dueDate)
   const totalAmount = getTotalAmount()
-  const lastReminder = invoice.reminders[0]
 
   return (
     <AppShell>
@@ -217,7 +215,7 @@ export default function InvoiceDetailPage() {
               {getStatusBadge(invoice.status)}
               {invoice.status === InvoiceStatus.OVERDUE && (
                 <span className="text-sm text-destructive">
-                  {daysOverdue} Tage überfällig
+                  {daysOverdue} Tage ueberfaellig
                 </span>
               )}
             </div>
@@ -257,13 +255,13 @@ export default function InvoiceDetailPage() {
                   onClick={() => setShowDeleteDialog(true)}
                 >
                   <Trash2 className="h-4 w-4 mr-2" />
-                  Löschen
+                  Loeschen
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </div>
-        {/* Betragsübersicht */}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Card>
             <CardHeader className="pb-2">
@@ -273,7 +271,7 @@ export default function InvoiceDetailPage() {
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardDescription>Mahngebühren</CardDescription>
+              <CardDescription>Mahngebuehren</CardDescription>
               <CardTitle className="text-2xl">
                 {formatCurrency(invoice.reminders.reduce((sum, r) => sum + (r.fee || 0), 0))}
               </CardTitle>
@@ -310,7 +308,6 @@ export default function InvoiceDetailPage() {
 
           <TabsContent value="details">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Rechnungsdetails */}
               <Card>
                 <CardHeader>
                   <CardTitle>Rechnungsdetails</CardTitle>
@@ -337,7 +334,7 @@ export default function InvoiceDetailPage() {
                   <div className="flex items-center gap-3">
                     <Clock className="h-5 w-5 text-muted-foreground" />
                     <div>
-                      <p className="text-sm text-muted-foreground">Fälligkeitsdatum</p>
+                      <p className="text-sm text-muted-foreground">Faelligkeitsdatum</p>
                       <p className={`font-medium ${invoice.status === InvoiceStatus.OVERDUE ? 'text-destructive' : ''}`}>
                         {format(new Date(invoice.dueDate), 'dd.MM.yyyy', { locale: de })}
                       </p>
@@ -353,7 +350,6 @@ export default function InvoiceDetailPage() {
                 </CardContent>
               </Card>
 
-              {/* Kundendetails */}
               <Card>
                 <CardHeader>
                   <CardTitle>Kunde</CardTitle>
@@ -416,7 +412,7 @@ export default function InvoiceDetailPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <CardTitle>Mahnungs-History</CardTitle>
-                    <CardDescription>Alle gesendeten Mahnungen für diese Rechnung</CardDescription>
+                    <CardDescription>Alle gesendeten Mahnungen fuer diese Rechnung</CardDescription>
                   </div>
                   {(invoice.status === InvoiceStatus.OPEN || invoice.status === InvoiceStatus.OVERDUE) && (
                     <Link href={`/invoices/${invoice.id}/remind`}>
@@ -449,7 +445,7 @@ export default function InvoiceDetailPage() {
                         <TableHead>Datum</TableHead>
                         <TableHead>Stufe</TableHead>
                         <TableHead>Betreff</TableHead>
-                        <TableHead>Gebühr</TableHead>
+                        <TableHead>Gebuehr</TableHead>
                         <TableHead>Status</TableHead>
                       </TableRow>
                     </TableHeader>
@@ -486,7 +482,7 @@ export default function InvoiceDetailPage() {
             <Card>
               <CardHeader>
                 <CardTitle>Zahlungen</CardTitle>
-                <CardDescription>Erhaltene Zahlungen für diese Rechnung</CardDescription>
+                <CardDescription>Erhaltene Zahlungen fuer diese Rechnung</CardDescription>
               </CardHeader>
               <CardContent>
                 {invoice.payments.length === 0 ? (
@@ -524,49 +520,46 @@ export default function InvoiceDetailPage() {
             </Card>
           </TabsContent>
         </Tabs>
-      </main>
 
-      {/* Delete Dialog */}
-      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Rechnung löschen</DialogTitle>
-            <DialogDescription>
-              Möchtest du die Rechnung {invoice.invoiceNumber} wirklich löschen? 
-              Diese Aktion kann nicht rückgängig gemacht werden.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowDeleteDialog(false)}>
-              Abbrechen
-            </Button>
-            <Button variant="destructive" onClick={deleteInvoice}>
-              Löschen
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+        <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Rechnung loeschen</DialogTitle>
+              <DialogDescription>
+                Moechtest du die Rechnung {invoice.invoiceNumber} wirklich loeschen? 
+                Diese Aktion kann nicht rueckgaengig gemacht werden.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowDeleteDialog(false)}>
+                Abbrechen
+              </Button>
+              <Button variant="destructive" onClick={deleteInvoice}>
+                Loeschen
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
-      {/* Payment Dialog */}
-      <Dialog open={showPaymentDialog} onOpenChange={setShowPaymentDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Als bezahlt markieren</DialogTitle>
-            <DialogDescription>
-              Möchtest du die Rechnung {invoice.invoiceNumber} als bezahlt markieren?
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowPaymentDialog(false)}>
-              Abbrechen
-            </Button>
-            <Button onClick={markAsPaid}>
-              <CheckCircle2 className="h-4 w-4 mr-2" />
-              Als bezahlt markieren
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+        <Dialog open={showPaymentDialog} onOpenChange={setShowPaymentDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Als bezahlt markieren</DialogTitle>
+              <DialogDescription>
+                Moechtest du die Rechnung {invoice.invoiceNumber} als bezahlt markieren?
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowPaymentDialog(false)}>
+                Abbrechen
+              </Button>
+              <Button onClick={markAsPaid}>
+                <CheckCircle2 className="h-4 w-4 mr-2" />
+                Als bezahlt markieren
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </AppShell>
   )
