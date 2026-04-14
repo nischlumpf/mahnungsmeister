@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { InvoiceStatus } from "@prisma/client";
 import { startOfYear, endOfYear, format } from "date-fns";
+import { de } from "date-fns/locale";
 
 // GET /api/dashboard - Dashboard-Statistiken laden
 export async function GET(request: NextRequest) {
@@ -110,8 +111,8 @@ export async function GET(request: NextRequest) {
     const months = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
     months.forEach((m) => (monthlyData[m] = 0));
 
-    remindersByMonth.forEach((r) => {
-      const month = format(r.createdAt, "MMM", { locale: { code: "de" } as Locale });
+    remindersByMonth.forEach((r: { createdAt: Date; _count: { id: number } }) => {
+      const month = format(r.createdAt, "MMM", { locale: de });
       const shortMonth = months.find((m) => month.startsWith(m)) || month;
       if (monthlyData[shortMonth] !== undefined) {
         monthlyData[shortMonth] += r._count.id;

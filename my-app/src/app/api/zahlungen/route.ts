@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
 
     // Bereits gezahlten Betrag ermitteln
     const alreadyPaid = invoice.payments.reduce(
-      (sum, p) => sum + p.amount.toNumber(),
+      (sum: number, p: { amount: { toNumber: () => number } }) => sum + p.amount.toNumber(),
       0
     );
 
@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validierungsfehler", details: error.errors },
+        { error: "Validierungsfehler", details: error.issues },
         { status: 400 }
       );
     }
