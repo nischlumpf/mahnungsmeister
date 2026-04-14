@@ -9,7 +9,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  turbopack: {},
+  experimental: {
+    serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs'],
+  },
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,

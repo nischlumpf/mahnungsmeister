@@ -60,7 +60,7 @@ function NewInvoiceContent() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           invoiceNumber: formData.invoiceNumber,
-          amount: formData.amount,
+          amount: parseFloat(formData.amount),
           currency: formData.currency,
           dueDate: formData.dueDate,
           issueDate: formData.issueDate,
