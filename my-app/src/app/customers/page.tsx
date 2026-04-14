@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { AppShell } from '@/components/layout/app-shell'
 import { 
   Search, 
   Plus, 
@@ -78,36 +79,20 @@ export default function CustomersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Link href="/dashboard">
-                <Button variant="ghost" size="icon">
-                  <ArrowLeft className="h-5 w-5" />
-                </Button>
-              </Link>
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <Users className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold tracking-tight">Kunden</h1>
-                <p className="text-sm text-muted-foreground">Kundenverwaltung</p>
-              </div>
-            </div>
-            <Link href="/customers/new">
-              <Button>
-                <Plus className="h-4 w-4 mr-2" />
-                Neuer Kunde
-              </Button>
-            </Link>
+    <AppShell>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">Kunden</h1>
+            <p className="text-sm text-muted-foreground">Kundenverwaltung</p>
           </div>
+          <Link href="/customers/new">
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Neuer Kunde
+            </Button>
+          </Link>
         </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -223,7 +208,6 @@ export default function CustomersPage() {
             )}
           </CardContent>
         </Card>
-      </main>
 
       {/* Delete Dialog */}
       <Dialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
@@ -244,6 +228,7 @@ export default function CustomersPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </AppShell>
   )
 }

@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { AppShell } from '@/components/layout/app-shell'
 import { 
   ArrowLeft, 
   Bell,
@@ -187,36 +188,20 @@ export default function CheckRemindersPage() {
   const waiting = checkResults.filter(r => r.recommendedAction === 'wait')
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Link href="/dashboard">
-                <Button variant="ghost" size="icon">
-                  <ArrowLeft className="h-5 w-5" />
-                </Button>
-              </Link>
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <Bell className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold tracking-tight">Mahnungen prüfen</h1>
-                <p className="text-sm text-muted-foreground">
-                  {needsAction.length} Rechnungen benötigen Aktion
-                </p>
-              </div>
-            </div>
-            <Button variant="outline" onClick={fetchOverdueInvoices} disabled={loading}>
-              <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
-              Aktualisieren
-            </Button>
+    <AppShell>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">Mahnungen prüfen</h1>
+            <p className="text-sm text-muted-foreground">
+              {needsAction.length} Rechnungen benötigen Aktion
+            </p>
           </div>
+          <Button variant="outline" onClick={fetchOverdueInvoices} disabled={loading}>
+            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+            Aktualisieren
+          </Button>
         </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Zusammenfassung */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card>
@@ -346,7 +331,6 @@ export default function CheckRemindersPage() {
             )}
           </CardContent>
         </Card>
-      </main>
 
       {/* Confirm Dialog */}
       <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
@@ -389,6 +373,7 @@ export default function CheckRemindersPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </AppShell>
   )
 }
