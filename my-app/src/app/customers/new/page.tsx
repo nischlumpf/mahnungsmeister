@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { AppShell } from '@/components/layout/app-shell'
-import { ArrowLeft, Save, Users } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card'
+import { Button } from '../../../components/ui/button'
+import { Input } from '../../../components/ui/input'
+import { Label } from '../../../components/ui/label'
+import { AppShell } from '../../../components/layout/app-shell'
+import { ArrowLeft, Save } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -50,6 +50,10 @@ export default function NewCustomerPage() {
     <AppShell>
       <div className="max-w-3xl mx-auto">
         <div className="mb-6">
+          <Link href="/customers" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1 mb-4">
+            <ArrowLeft className="h-4 w-4" />
+            Zurück zur Übersicht
+          </Link>
           <h1 className="text-2xl font-bold tracking-tight">Neuer Kunde</h1>
           <p className="text-sm text-muted-foreground">Kunde anlegen</p>
         </div>
@@ -62,7 +66,6 @@ export default function NewCustomerPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Name & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name *</Label>
@@ -87,7 +90,6 @@ export default function NewCustomerPage() {
                 </div>
               </div>
 
-              {/* Phone */}
               <div className="space-y-2">
                 <Label htmlFor="phone">Telefon</Label>
                 <Input
@@ -98,7 +100,6 @@ export default function NewCustomerPage() {
                 />
               </div>
 
-              {/* Address */}
               <div className="space-y-4">
                 <h3 className="text-sm font-medium text-muted-foreground">Adresse</h3>
                 
@@ -144,7 +145,6 @@ export default function NewCustomerPage() {
                 </div>
               </div>
 
-              {/* Actions */}
               <div className="flex justify-end gap-3 pt-4 border-t">
                 <Link href="/customers">
                   <Button type="button" variant="outline">
