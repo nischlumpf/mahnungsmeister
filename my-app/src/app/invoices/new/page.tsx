@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { AppShell } from '@/components/layout/app-shell'
 import { ArrowLeft, Save, FileText, Upload } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -81,28 +82,12 @@ export default function NewInvoicePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center gap-3">
-            <Link href="/invoices">
-              <Button variant="ghost" size="icon">
-                <ArrowLeft className="h-5 w-5" />
-              </Button>
-            </Link>
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <FileText className="h-6 w-6 text-primary" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight">Neue Rechnung</h1>
-              <p className="text-sm text-muted-foreground">Rechnung anlegen</p>
-            </div>
-          </div>
+    <AppShell>
+      <div className="max-w-3xl mx-auto">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold tracking-tight">Neue Rechnung</h1>
+          <p className="text-sm text-muted-foreground">Rechnung anlegen</p>
         </div>
-      </header>
-
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <form onSubmit={handleSubmit}>
           <Card>
             <CardHeader>
@@ -252,7 +237,7 @@ export default function NewInvoicePage() {
             </CardContent>
           </Card>
         </form>
-      </main>
-    </div>
+      </div>
+    </AppShell>
   )
 }

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { AppShell } from '@/components/layout/app-shell'
 import { 
   ArrowLeft, 
   FileText,
@@ -175,26 +176,30 @@ export default function InvoiceDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
+      <AppShell>
+        <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+      </AppShell>
     )
   }
 
   if (!invoice) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-center">
-          <AlertCircle className="h-12 w-12 mx-auto mb-3 text-destructive" />
-          <h1 className="text-xl font-semibold">Rechnung nicht gefunden</h1>
-          <Link href="/invoices">
-            <Button variant="outline" className="mt-4">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Zurück zur Übersicht
-            </Button>
-          </Link>
+      <AppShell>
+        <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+          <div className="text-center">
+            <AlertCircle className="h-12 w-12 mx-auto mb-3 text-destructive" />
+            <h1 className="text-xl font-semibold">Rechnung nicht gefunden</h1>
+            <Link href="/invoices">
+              <Button variant="outline" className="mt-4">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Zurück zur Übersicht
+              </Button>
+            </Link>
+          </div>
         </div>
-      </div>
+      </AppShell>
     )
   }
 
@@ -203,77 +208,61 @@ export default function InvoiceDetailPage() {
   const lastReminder = invoice.reminders[0]
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Link href="/invoices">
-                <Button variant="ghost" size="icon">
-                  <ArrowLeft className="h-5 w-5" />
-                </Button>
-              </Link>
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <FileText className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold tracking-tight">{invoice.invoiceNumber}</h1>
-                <div className="flex items-center gap-2 mt-1">
-                  {getStatusBadge(invoice.status)}
-                  {invoice.status === InvoiceStatus.OVERDUE && (
-                    <span className="text-sm text-destructive">
-                      {daysOverdue} Tage überfällig
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              {(invoice.status === InvoiceStatus.OPEN || invoice.status === InvoiceStatus.OVERDUE) && (
-                <>
-                  <Link href={`/invoices/${invoice.id}/remind`}>
-                    <Button variant="outline" className="gap-2">
-                      <Send className="h-4 w-4" />
-                      Mahnung senden
-                    </Button>
-                  </Link>
-                  <Button onClick={() => setShowPaymentDialog(true)} className="gap-2">
-                    <CheckCircle2 className="h-4 w-4" />
-                    Als bezahlt markieren
-                  </Button>
-                </>
+    <AppShell>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">{invoice.invoiceNumber}</h1>
+            <div className="flex items-center gap-2 mt-1">
+              {getStatusBadge(invoice.status)}
+              {invoice.status === InvoiceStatus.OVERDUE && (
+                <span className="text-sm text-destructive">
+                  {daysOverdue} Tage überfällig
+                </span>
               )}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <MoreHorizontal className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {invoice.pdfUrl && (
-                    <DropdownMenuItem asChild>
-                      <a href={invoice.pdfUrl} target="_blank" rel="noopener noreferrer">
-                        <Printer className="h-4 w-4 mr-2" />
-                        PDF anzeigen
-                      </a>
-                    </DropdownMenuItem>
-                  )}
-                  <DropdownMenuItem 
-                    className="text-destructive"
-                    onClick={() => setShowDeleteDialog(true)}
-                  >
-                    <Trash2 className="h-4 w-4 mr-2" />
-                    Löschen
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
             </div>
           </div>
+          <div className="flex items-center gap-2">
+            {(invoice.status === InvoiceStatus.OPEN || invoice.status === InvoiceStatus.OVERDUE) && (
+              <>
+                <Link href={`/invoices/${invoice.id}/remind`}>
+                  <Button variant="outline" className="gap-2">
+                    <Send className="h-4 w-4" />
+                    Mahnung senden
+                  </Button>
+                </Link>
+                <Button onClick={() => setShowPaymentDialog(true)} className="gap-2">
+                  <CheckCircle2 className="h-4 w-4" />
+                  Als bezahlt markieren
+                </Button>
+              </>
+            )}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <MoreHorizontal className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {invoice.pdfUrl && (
+                  <DropdownMenuItem asChild>
+                    <a href={invoice.pdfUrl} target="_blank" rel="noopener noreferrer">
+                      <Printer className="h-4 w-4 mr-2" />
+                      PDF anzeigen
+                    </a>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem 
+                  className="text-destructive"
+                  onClick={() => setShowDeleteDialog(true)}
+                >
+                  <Trash2 className="h-4 w-4 mr-2" />
+                  Löschen
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Betragsübersicht */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Card>
@@ -578,6 +567,7 @@ export default function InvoiceDetailPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </AppShell>
   )
 }

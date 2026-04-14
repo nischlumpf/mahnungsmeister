@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { AppShell } from '@/components/layout/app-shell'
 import { 
   ArrowLeft, 
   Save, 
@@ -134,26 +135,30 @@ export default function CustomerDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
+      <AppShell>
+        <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+      </AppShell>
     )
   }
 
   if (!customer) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-center">
-          <AlertCircle className="h-12 w-12 mx-auto mb-3 text-destructive" />
-          <h1 className="text-xl font-semibold">Kunde nicht gefunden</h1>
-          <Link href="/customers">
-            <Button variant="outline" className="mt-4">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Zurück zur Übersicht
-            </Button>
-          </Link>
+      <AppShell>
+        <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+          <div className="text-center">
+            <AlertCircle className="h-12 w-12 mx-auto mb-3 text-destructive" />
+            <h1 className="text-xl font-semibold">Kunde nicht gefunden</h1>
+            <Link href="/customers">
+              <Button variant="outline" className="mt-4">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Zurück zur Übersicht
+              </Button>
+            </Link>
+          </div>
         </div>
-      </div>
+      </AppShell>
     )
   }
 
@@ -162,36 +167,20 @@ export default function CustomerDetailPage() {
   const totalOpen = openInvoices.reduce((sum, i) => sum + Number(i.amount), 0)
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Link href="/customers">
-                <Button variant="ghost" size="icon">
-                  <ArrowLeft className="h-5 w-5" />
-                </Button>
-              </Link>
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <Users className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold tracking-tight">{customer.name}</h1>
-                <p className="text-sm text-muted-foreground">Kundendetails</p>
-              </div>
-            </div>
-            <Link href={`/invoices/new?customerId=${customer.id}`}>
-              <Button>
-                <Plus className="h-4 w-4 mr-2" />
-                Neue Rechnung
-              </Button>
-            </Link>
+    <AppShell>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">{customer.name}</h1>
+            <p className="text-sm text-muted-foreground">Kundendetails</p>
           </div>
+          <Link href={`/invoices/new?customerId=${customer.id}`}>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Neue Rechnung
+            </Button>
+          </Link>
         </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Card>
@@ -392,7 +381,7 @@ export default function CustomerDetailPage() {
             </Card>
           </TabsContent>
         </Tabs>
-      </main>
-    </div>
+      </div>
+    </AppShell>
   )
 }
