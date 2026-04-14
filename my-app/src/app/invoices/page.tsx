@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { AppShell } from '@/components/layout/app-shell'
 import { 
   ArrowLeft, 
   Plus, 
@@ -125,36 +126,20 @@ export default function InvoicesPage() {
   const title = statusFilter === 'OVERDUE' ? 'Überfällige Rechnungen' : 'Alle Rechnungen'
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Link href="/dashboard">
-                <Button variant="ghost" size="icon">
-                  <ArrowLeft className="h-5 w-5" />
-                </Button>
-              </Link>
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <FileText className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
-                <p className="text-sm text-muted-foreground">{invoices.length} Rechnungen</p>
-              </div>
-            </div>
-            <Link href="/invoices/new">
-              <Button>
-                <Plus className="h-4 w-4 mr-2" />
-                Neue Rechnung
-              </Button>
-            </Link>
+    <AppShell>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
+            <p className="text-sm text-muted-foreground">{invoices.length} Rechnungen</p>
           </div>
+          <Link href="/invoices/new">
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Neue Rechnung
+            </Button>
+          </Link>
         </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Card>
           <CardContent className="p-0">
             {loading ? (
@@ -259,7 +244,6 @@ export default function InvoicesPage() {
             )}
           </CardContent>
         </Card>
-      </main>
 
       {/* Delete Dialog */}
       <Dialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
@@ -280,6 +264,7 @@ export default function InvoicesPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </AppShell>
   )
 }

@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { signOut } from "next-auth/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -57,6 +58,13 @@ function NavLink({ item, onClick }: { item: NavItem; onClick?: () => void }) {
 }
 
 function Sidebar({ className }: { className?: string }) {
+  const router = useRouter()
+  
+  async function handleLogout() {
+    await signOut({ redirect: false })
+    router.push("/login")
+  }
+
   return (
     <div className={cn("flex flex-col h-full", className)}>
       <div className="flex items-center gap-2 px-4 py-6">
@@ -73,7 +81,7 @@ function Sidebar({ className }: { className?: string }) {
       </nav>
 
       <div className="p-4 border-t">
-        <Button variant="ghost" className="w-full justify-start gap-3">
+        <Button variant="ghost" className="w-full justify-start gap-3" onClick={handleLogout}>
           <LogOut className="h-4 w-4" />
           <span className="text-sm font-medium">Abmelden</span>
         </Button>
