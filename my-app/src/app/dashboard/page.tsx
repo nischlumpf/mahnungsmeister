@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { AppShell } from '@/components/layout/app-shell'
 import { 
   Euro, 
   AlertCircle, 
@@ -88,40 +89,17 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
+      <AppShell>
+        <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+      </AppShell>
     )
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <Bell className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold tracking-tight">Mahnungsmeister</h1>
-                <p className="text-sm text-muted-foreground">Dashboard</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <Link href="/customers">
-                <Button variant="outline">Kunden</Button>
-              </Link>
-              <Link href="/invoices">
-                <Button variant="outline">Rechnungen</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <AppShell>
+      <div className="space-y-8">
         {/* Statistik-Karten */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <Card>
@@ -295,7 +273,7 @@ export default function DashboardPage() {
             </Card>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </AppShell>
   )
 }
