@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
 
     // Betrag inkl. bisheriger Mahngebühren
     const totalFees = invoice.reminders.reduce(
-      (sum, r) => sum + (r.fee?.toNumber() || 0),
+      (sum: number, r: { fee?: { toNumber: () => number } | null }) => sum + (r.fee?.toNumber() || 0),
       0
     );
     const totalAmount = invoice.amount.toNumber() + totalFees + (fee || 0);
