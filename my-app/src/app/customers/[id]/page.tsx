@@ -9,18 +9,12 @@ import { Label } from '../../../components/ui/label'
 import { Badge } from '../../../components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table'
 import { AppShell } from '../../../components/layout/app-shell'
-import { 
-  ArrowLeft, 
-  Save, 
-  Users, 
-  Mail, 
-  Phone, 
-  MapPin,
+import {
+  ArrowLeft,
+  Save,
   FileText,
   Plus,
   AlertCircle,
-  CheckCircle2,
-  Clock
 } from 'lucide-react'
 import Link from 'next/link'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs'

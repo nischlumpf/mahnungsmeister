@@ -6,21 +6,16 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { AppShell } from '@/components/layout/app-shell'
-import { 
-  ArrowLeft, 
-  Bell,
+import {
   Send,
   CheckCircle2,
-  AlertCircle,
-  Clock,
   RefreshCw,
   FileText,
   User
 } from 'lucide-react'
 import Link from 'next/link'
 import { InvoiceStatus } from '@prisma/client'
-import { format, differenceInDays } from 'date-fns'
-import { de } from 'date-fns/locale'
+import { differenceInDays } from 'date-fns'
 import {
   Dialog,
   DialogContent,
@@ -68,7 +63,7 @@ const ACTION_LABELS = {
 }
 
 export default function CheckRemindersPage() {
-  const [overdueInvoices, setOverdueInvoices] = useState<Invoice[]>([])
+  const [, setOverdueInvoices] = useState<Invoice[]>([])
   const [checkResults, setCheckResults] = useState<CheckResult[]>([])
   const [loading, setLoading] = useState(true)
   const [processing, setProcessing] = useState<string | null>(null)

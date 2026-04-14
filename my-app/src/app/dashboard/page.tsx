@@ -6,20 +6,16 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { AppShell } from '@/components/layout/app-shell'
-import { 
-  Euro, 
-  AlertCircle, 
-  TrendingUp, 
-  Users, 
-  FileText, 
-  Plus, 
+import {
+  AlertCircle,
+  Users,
+  FileText,
+  Plus,
   Bell,
   ArrowRight,
   CheckCircle2
 } from 'lucide-react'
 import Link from 'next/link'
-import { format, formatDistanceToNow } from 'date-fns'
-import { de } from 'date-fns/locale'
 
 interface DashboardStats {
   openAmount: number

@@ -8,15 +8,14 @@ import { Badge } from '@/components/ui/badge'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { 
-  ArrowLeft, 
-  Send, 
+import {
+  ArrowLeft,
+  Send,
   FileText,
   AlertCircle,
   Euro,
   Clock,
   User,
-  Mail,
   CheckCircle2
 } from 'lucide-react'
 import Link from 'next/link'

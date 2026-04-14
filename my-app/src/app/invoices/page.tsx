@@ -2,15 +2,14 @@
 
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { AppShell } from '@/components/layout/app-shell'
-import { 
-  ArrowLeft, 
-  Plus, 
-  FileText, 
+import {
+  Plus,
+  FileText,
   AlertCircle,
   CheckCircle2,
   Clock,

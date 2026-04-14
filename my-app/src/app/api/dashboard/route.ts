@@ -9,7 +9,7 @@ import { de } from "date-fns/locale";
 export const dynamic = 'force-dynamic';
 
 // GET /api/dashboard - Dashboard-Statistiken laden
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 

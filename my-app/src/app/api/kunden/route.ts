@@ -14,7 +14,7 @@ const customerCreateSchema = z.object({
   country: z.string().default("DE"),
 });
 
-const customerUpdateSchema = customerCreateSchema.partial();
+const _customerUpdateSchema = customerCreateSchema.partial();
 
 // GET /api/kunden - Alle Kunden des eingeloggten Users
 export async function GET(request: NextRequest) {

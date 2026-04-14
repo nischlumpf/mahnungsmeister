@@ -6,7 +6,7 @@ import { InvoiceStatus } from "@prisma/client";
 import { isPast, startOfDay } from "date-fns";
 
 // POST /api/invoices/check-overdue - Überfällige Rechnungen aktualisieren
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
 }
 
 // GET /api/invoices/check-overdue - Überfällige Rechnungen anzeigen (ohne Update)
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 

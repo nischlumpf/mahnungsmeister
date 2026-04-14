@@ -91,7 +91,7 @@ interface TemplateData {
 }
 
 // GET /api/mahnungen/templates - Alle Templates auflisten
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
