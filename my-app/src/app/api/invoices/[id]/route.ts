@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { InvoiceStatus } from "@prisma/client";
 
+export const dynamic = 'force-dynamic';
+
 const invoiceUpdateSchema = z.object({
   invoiceNumber: z.string().min(1).optional(),
   amount: z.number().positive().optional(),

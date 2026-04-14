@@ -6,6 +6,8 @@ import { InvoiceStatus } from "@prisma/client";
 import { startOfYear, endOfYear, format } from "date-fns";
 import { de } from "date-fns/locale";
 
+export const dynamic = 'force-dynamic';
+
 // GET /api/dashboard - Dashboard-Statistiken laden
 export async function GET(request: NextRequest) {
   try {

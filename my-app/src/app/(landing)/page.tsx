@@ -4,6 +4,8 @@ import { ArrowRight, Check, FileText, Zap, Shield, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
+export const dynamic = 'force-dynamic';
+
 export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col">

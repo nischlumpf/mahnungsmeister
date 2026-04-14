@@ -4,6 +4,8 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
+export const dynamic = 'force-dynamic';
+
 const customerSchema = z.object({
   name: z.string().min(1, "Name ist erforderlich"),
   email: z.string().email("Gültige E-Mail ist erforderlich"),

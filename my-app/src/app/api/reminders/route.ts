@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { ReminderStatus, InvoiceStatus } from "@prisma/client";
 
+export const dynamic = 'force-dynamic';
+
 const reminderSchema = z.object({
   invoiceId: z.string().min(1, "Rechnung ist erforderlich"),
   level: z.number().int().min(0).max(3, "Level muss zwischen 0 und 3 sein"),

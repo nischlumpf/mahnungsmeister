@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { InvoiceStatus } from "@prisma/client";
 
+export const dynamic = 'force-dynamic';
+
 const invoiceSchema = z.object({
   invoiceNumber: z.string().min(1, "Rechnungsnummer ist erforderlich"),
   amount: z.number().positive("Betrag muss positiv sein"),

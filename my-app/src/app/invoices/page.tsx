@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -47,7 +47,7 @@ interface Invoice {
   reminders: { level: number; sentAt: string }[]
 }
 
-export default function InvoicesPage() {
+function InvoicesContent() {
   const searchParams = useSearchParams()
   const statusFilter = searchParams.get('status')
   
@@ -266,5 +266,19 @@ export default function InvoicesPage() {
       </Dialog>
       </div>
     </AppShell>
+  )
+}
+
+export default function InvoicesPage() {
+  return (
+    <Suspense fallback={
+      <AppShell>
+        <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+      </AppShell>
+    }>
+      <InvoicesContent />
+    </Suspense>
   )
 }
