@@ -115,6 +115,7 @@ export default function SendReminderPage() {
   const [loading, setLoading] = useState(true)
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [level, setLevel] = useState(suggestedLevel)
   const [subject, setSubject] = useState('')
   const [body, setBody] = useState('')
@@ -175,6 +176,7 @@ export default function SendReminderPage() {
 
   async function sendReminder() {
     setSending(true)
+    setError(null)
     try {
       const res = await fetch('/api/reminders', {
         method: 'POST',
@@ -186,15 +188,19 @@ export default function SendReminderPage() {
           body,
         }),
       })
-      
+
       if (res.ok) {
         setSent(true)
         setTimeout(() => {
           router.push('/dashboard')
         }, 2000)
+      } else {
+        const data = await res.json()
+        setError(data.error || 'Mahnung konnte nicht gesendet werden')
       }
-    } catch (error) {
-      console.error('Error sending reminder:', error)
+    } catch (err) {
+      setError('Netzwerkfehler. Bitte versuche es erneut.')
+      console.error('Error sending reminder:', err)
     } finally {
       setSending(false)
     }
@@ -428,6 +434,9 @@ export default function SendReminderPage() {
                     </>
                   )}
                 </Button>
+                {error && (
+                  <p className="text-sm text-destructive mt-2">{error}</p>
+                )}
               </div>
             </CardContent>
           </Card>

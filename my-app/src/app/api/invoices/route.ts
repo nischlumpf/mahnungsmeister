@@ -12,6 +12,7 @@ const invoiceSchema = z.object({
   amount: z.number().positive("Betrag muss positiv sein"),
   currency: z.string().default("EUR"),
   dueDate: z.string().datetime("Gültiges Datum erforderlich"),
+  issueDate: z.string().datetime("Gültiges Ausstellungsdatum erforderlich").optional(),
   description: z.string().optional(),
   customerId: z.string().min(1, "Kunde ist erforderlich"),
   pdfUrl: z.string().optional(),
